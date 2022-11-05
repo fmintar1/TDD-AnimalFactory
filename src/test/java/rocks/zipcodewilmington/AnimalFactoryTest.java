@@ -1,18 +1,11 @@
 package rocks.zipcodewilmington;
 import org.junit.Assert;
 import org.junit.Test;
-import rocks.zipcodewilmington.animals.Animal;
-import rocks.zipcodewilmington.animals.Cat;
-import rocks.zipcodewilmington.animals.Dog;
-import rocks.zipcodewilmington.animals.Mammal;
-import rocks.zipcodewilmington.animals.animal_creation.AnimalFactory;
-import rocks.zipcodewilmington.animals.animal_storage.CatHouse;
-import rocks.zipcodewilmington.animals.animal_storage.DogHouse;
-
+import rocks.zipcodewilmington.animals.*;
+import rocks.zipcodewilmington.animals.animal_storage.*;
+import static rocks.zipcodewilmington.animals.animal_creation.AnimalFactory.*;
 import java.util.Date;
 
-import static rocks.zipcodewilmington.animals.animal_creation.AnimalFactory.createCat;
-import static rocks.zipcodewilmington.animals.animal_creation.AnimalFactory.createDog;
 
 /**
  * @author leon on 4/19/18.
@@ -22,28 +15,35 @@ public class AnimalFactoryTest {
     //TODO - Create Test for `Animal createDog(String name, Date birthDate)`
     @Test
     public void createDogTest() {
-        Dog dog = createDog("Fido", new Date());
-        Dog dog2 = createDog("Rocky", new Date());
-        Dog dog3 = new Dog("Bark", new Date(), 3);
+
+        Date birthDate = new Date();
+        Dog dog = createDog("Fido", birthDate);
         DogHouse.add(dog);
-        DogHouse.add(dog2);
-        DogHouse.add(dog3);
         System.out.println(dog.getId());
+        Dog dog2 = createDog("Rocky", birthDate);
+        DogHouse.add(dog2);
         System.out.println(dog2.getId());
+        Dog dog3 = new Dog("Bark", birthDate, 5);
+        DogHouse.add(dog3);
         System.out.println(dog3.getId());
         Assert.assertEquals("Fido", dog.getName());
-//        Assert.assertEquals(new Date(), dog.getBirthDate());
+        Assert.assertEquals(birthDate, dog.getBirthDate());
 //        Assert.assertEquals(1, (int) dog.getId());
     }
     //TODO - Create Test for `Animal createCat(String name, Date birthDate)`
     @Test
     public void createCatTest() {
-        Cat cat = new Cat(null, null, null);
-        cat = createCat("Oreo", new Date());
-        CatHouse.add(cat);
-        Integer id = CatHouse.getNumberOfCats();
-        Assert.assertEquals("Oreo", cat.getName());
-//        Assert.assertEquals(new Date(), cat.getBirthDate());
-        Assert.assertEquals(1, (int) cat.getId());
+        Date birthDate = new Date();
+        Cat cat1 = createCat("Cheshire", birthDate);
+        CatHouse.add(cat1);
+        System.out.println(cat1.getId());
+        Cat cat2 = createCat("Oreo", birthDate);
+        CatHouse.add(cat2);
+        System.out.println(cat2.getId());
+        Cat cat3 = new Cat("Spike", birthDate, 4);
+        CatHouse.add(cat3);
+        System.out.println(cat3.getId());
+        Assert.assertEquals("Oreo", cat2.getName());
+        Assert.assertEquals(birthDate, cat3.getBirthDate());
     }
 }
